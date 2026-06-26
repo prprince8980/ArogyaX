@@ -4,6 +4,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import axios from 'axios';
 
 const ADMIN_EMAIL = 'princep4732355@gmail.com';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 function PatientDashboard({ user, onLogout }) {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function PatientDashboard({ user, onLogout }) {
     const fetchReports = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/auth/patient/my-reports', {
+        const res = await axios.get(`${API_URL}/api/auth/patient/my-reports`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.data.success) {

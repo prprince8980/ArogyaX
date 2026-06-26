@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 function DoctorDashboard({ user, onLogout }) {
   const navigate = useNavigate();
   const [scannerOpen, setScannerOpen] = useState(false);
@@ -52,7 +54,7 @@ function DoctorDashboard({ user, onLogout }) {
     const fetchReportHistory = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/auth/doctor/report-history', {
+        const res = await axios.get(`${API_URL}/api/auth/doctor/report-history`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.data.success) {

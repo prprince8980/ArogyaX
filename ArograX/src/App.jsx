@@ -8,6 +8,8 @@ import PatientDashboard from './PatientDashboard';
 import DoctorDashboard from './DoctorDashboard';
 import OnboardingForm from './OnboardingForm'; 
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 function App() {
   const [role, setRole] = useState('patient'); 
   const [userData, setUserData] = useState(null);
@@ -27,7 +29,7 @@ function App() {
   const handleGoogleSuccess = async (credentialResponse, selectedRole) => {
     setErrorMsg('');
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/google-login', {
+      const response = await axios.post(`${API_URL}/api/auth/google-login`, {
         credential: credentialResponse.credential,
         role: selectedRole
       });
