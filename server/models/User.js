@@ -31,6 +31,7 @@ const UserSchema = new mongoose.Schema({
     title: { type: String, required: true },
     reportUrl: { type: String, required: true },
     notes: { type: String, default: '' },
+    prescribedMedicines: { type: String, default: '' },
     doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     doctorName: { type: String, required: true },
     doctorSpecialization: { type: String, default: '' },

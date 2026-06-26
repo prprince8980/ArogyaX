@@ -15,7 +15,8 @@ function PatientMedicalRecord({ currentUser }) {
   const [reportForm, setReportForm] = useState({
     title: '',
     reportUrl: '',
-    notes: ''
+    notes: '',
+    prescribedMedicines: ''
   });
 
   const [reportMessage, setReportMessage] = useState('');
@@ -84,7 +85,8 @@ function PatientMedicalRecord({ currentUser }) {
         setReportForm({
           title: '',
           reportUrl: '',
-          notes: ''
+          notes: '',
+          prescribedMedicines: ''
         });
 
         setReportMessage('Report successfully added.');
@@ -230,6 +232,15 @@ function PatientMedicalRecord({ currentUser }) {
                 rows="4"
               />
 
+              <textarea
+                placeholder="Prescribed medicines, dosage, and timing"
+                value={reportForm.prescribedMedicines}
+                onChange={(e) =>
+                  setReportForm({ ...reportForm, prescribedMedicines: e.target.value })
+                }
+                rows="4"
+              />
+
               <button className="btn btn-primary" type="submit" disabled={submittingReport}>
                 {submittingReport ? 'Saving...' : 'Save Report'}
               </button>
@@ -259,6 +270,9 @@ function PatientMedicalRecord({ currentUser }) {
                     <div>
                       <strong>{report.title}</strong>
                       <p>{report.notes || 'No notes added.'}</p>
+                      {report.prescribedMedicines && (
+                        <p className="medicine-note">Medicines: {report.prescribedMedicines}</p>
+                      )}
                       <span>
                         By Dr. {report.doctorName} on{' '}
                         {new Date(report.createdAt).toLocaleDateString()}

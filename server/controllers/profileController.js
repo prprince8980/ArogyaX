@@ -102,7 +102,7 @@ exports.getPatientDataForDoctor = async (req, res) => {
 
 exports.addPatientMedicalReport = async (req, res) => {
   const { patientId } = req.params;
-  const { title, reportUrl, notes } = req.body;
+  const { title, reportUrl, notes, prescribedMedicines } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(patientId)) {
     return res.status(400).json({
@@ -131,6 +131,7 @@ exports.addPatientMedicalReport = async (req, res) => {
       title: title.trim(),
       reportUrl: reportUrl.trim(),
       notes: notes?.trim() || '',
+      prescribedMedicines: prescribedMedicines?.trim() || '',
       doctorId: doctor._id,
       doctorName: doctor.name,
       doctorSpecialization: doctor.doctorProfile?.specialization || '',
@@ -208,6 +209,7 @@ exports.getDoctorReportHistory = async (req, res) => {
           title: report.title,
           reportUrl: report.reportUrl,
           notes: report.notes,
+          prescribedMedicines: report.prescribedMedicines,
           createdAt: report.createdAt,
           patientId: patient._id,
           patientName: patient.name,
